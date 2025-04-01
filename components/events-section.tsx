@@ -18,8 +18,8 @@ export default function EventsSection() {
     }
   }, [isInView, controls])
 
-  const openVideoModal = (videoHtml: string) => {
-    setCurrentVideo(videoHtml)
+  const openVideoModal = (videoPath: string) => {
+    setCurrentVideo(videoPath)
     setVideoModalOpen(true)
     // Bloquer le défilement de la page quand la modale est ouverte
     document.body.style.overflow = "hidden"
@@ -39,7 +39,7 @@ export default function EventsSection() {
       date: "Événement passé",
       location: "L'Erdre, Nantes",
       videoEmbed: true,
-      video: '<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fclean.eau.nantes%2Fvideos%2F1364417544254909%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>'
+      videoPath: "/videos/toue.mp4"
     },
     {
       title: "Rendez-vous de l'Erdre",
@@ -108,7 +108,7 @@ export default function EventsSection() {
                 <p className="text-gray-600 mb-4">{event.description}</p>
                 {event.videoEmbed ? (
                   <button
-                    onClick={() => openVideoModal(event.video || '')}
+                    onClick={() => openVideoModal(event.videoPath || '')}
                     className="inline-flex items-center text-primary hover:text-secondary transition-colors duration-300"
                   >
                     Voir la vidéo
@@ -135,12 +135,19 @@ export default function EventsSection() {
           <div className="relative bg-white rounded-lg shadow-xl p-2">
             <button 
               onClick={closeVideoModal}
-              className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100 transition-colors duration-200"
+              className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100 transition-colors duration-200 z-10"
               aria-label="Fermer"
             >
               <X className="h-6 w-6 text-gray-800" />
             </button>
-            <div dangerouslySetInnerHTML={{ __html: currentVideo }}></div>
+            <video 
+              src={currentVideo} 
+              controls 
+              autoPlay 
+              className="max-h-[80vh] max-w-full"
+            >
+              Votre navigateur ne prend pas en charge la lecture vidéo.
+            </video>
           </div>
         </div>
       )}
