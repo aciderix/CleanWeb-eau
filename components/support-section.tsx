@@ -77,7 +77,7 @@ export default function SupportSection() {
           </motion.div>
 
           <motion.div
-            className="relative h-[400px] rounded-lg overflow-hidden"
+            className="relative h-[400px] rounded-lg overflow-hidden flex items-center justify-center p-8"
             initial="hidden"
             animate={controls}
             variants={{
@@ -89,7 +89,7 @@ export default function SupportSection() {
               src="/images/Clean-logo.png"
               alt="Soutenez C.L.E.A.N."
               fill
-              className="object-contain"
+              className="object-contain max-w-[70%] max-h-[70%]"
             />
           </motion.div>
         </div>
