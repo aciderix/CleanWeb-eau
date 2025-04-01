@@ -41,20 +41,30 @@ export default function ContactSection() {
     setIsSubmitting(true)
 
     try {
-      // Since we've removed the backend, we'll simulate a successful form submission
-      // In a real-world scenario, you might want to use a form service like Formspree, Netlify Forms, etc.
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      setFormStatus({
-        type: "success",
-        message: "Message envoyé ! Nous vous répondrons dans les plus brefs délais.",
+      // Utilisation de Formspree pour l'envoi du formulaire
+      const response = await fetch("https://formspree.io/f/meoarqrk", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       })
 
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      })
+      if (response.ok) {
+        setFormStatus({
+          type: "success",
+          message: "Message envoyé ! Nous vous répondrons dans les plus brefs délais.",
+        })
+
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        })
+      } else {
+        throw new Error("Erreur lors de l'envoi du formulaire");
+      }
     } catch (error) {
       setFormStatus({
         type: "error",
@@ -158,7 +168,7 @@ export default function ContactSection() {
               visible: { opacity: 1, x: 0, transition: { duration: 0.6, delay: 0.5 } },
             }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" action="https://formspree.io/f/meoarqrk" method="POST">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Nom
