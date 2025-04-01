@@ -19,37 +19,37 @@ export default function PartnersSection() {
   const partners = [
     {
       name: "Fédération des Amis de l'Erdre",
-      logo: "/placeholder.svg?height=150&width=150",
+      logo: "/images/amis-erdre.png",
       website: "https://federation-des-amis-de-l-erdre.org",
     },
     {
       name: "ECOPOLE",
-      logo: "/placeholder.svg?height=150&width=150",
+      logo: "/images/ecopole.png",
       website: "https://ecopole.org",
     },
     {
       name: "Swim for the Planet",
-      logo: "/placeholder.svg?height=150&width=150",
+      logo: "/images/swim.jpg",
       website: "https://www.helloasso.com/swim-for-the-planet",
     },
     {
       name: "Nantes Métropole",
-      logo: "/placeholder.svg?height=150&width=150",
+      logo: "/images/nantes.png",
       website: "https://metropole.nantes.fr",
     },
     {
       name: "NGE - Ports de Nantes",
-      logo: "/placeholder.svg?height=150&width=150",
+      logo: "/images/nge.png",
       website: "https://ports-nantes.fr",
     },
     {
       name: "ACE",
-      logo: "/placeholder.svg?height=150&width=150",
+      logo: "/images/ace.png",
       website: "https://ace-nantes.fr",
     },
     {
       name: "Océan Fest",
-      logo: "/placeholder.svg?height=150&width=150",
+      logo: "/images/ocean-fest-logo.jpg",
       website: "https://oceanfest.fr",
     },
   ]
