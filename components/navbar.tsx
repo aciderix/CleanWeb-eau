@@ -49,7 +49,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <Image
-            src="/placeholder.svg?height=50&width=150"
+            src="/images/Clean-logo-blanc.png"
             alt="C.L.E.A.N. Logo"
             width={150}
             height={50}

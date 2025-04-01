@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <div className="mb-6">
               <Image
-                src="/placeholder.svg?height=50&width=150"
+                src="/images/Clean-logo-blanc.png"
                 alt="C.L.E.A.N. Logo"
                 width={150}
                 height={50}

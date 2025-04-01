@@ -23,7 +23,7 @@ export default function ActivitiesSection() {
       description:
         "Déploiement de Bacs à Déchets Sauvages (BADS) sur les rivières, en commençant par l'Erdre, pour permettre aux usagers de collecter les déchets flottants qu'ils rencontrent.",
       highlight: "Rejoignez le mouvement BADS et contribuez à la préservation de nos rivières !",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/images/bac.jpg",
       alt: "Bac à déchets sauvages",
       link: "#contact",
       linkText: "Participer au projet BADS",
@@ -33,7 +33,7 @@ export default function ActivitiesSection() {
       description:
         "Sorties en bateau, canoë ou paddle combinant découverte du patrimoine naturel et nettoyage des cours d'eau (Erdre, Loire et affluents).",
       highlight: "Explorez l'Erdre sous un nouveau jour tout en agissant pour sa préservation.",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/images/bateau.png",
       alt: "Éco-Navigation sur l'Erdre",
       link: "#contact",
       linkText: "S'inscrire à une Éco-Navigation",
@@ -43,7 +43,7 @@ export default function ActivitiesSection() {
       description:
         "Rencontre avec le public lors d'événements comme les Rendez-vous de l'Erdre pour partager nos observations et montrer comment chacun peut participer.",
       highlight: "",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/images/sensibilisation.jpg",
       alt: "Sensibilisation et éducation",
       link: "#contact",
       linkText: "Nous rencontrer",
@@ -54,7 +54,7 @@ export default function ActivitiesSection() {
         "Travailler avec tous les acteurs concernés par la préservation des cours d'eau, participer à la réflexion collective et apporter notre expérience de terrain.",
       highlight:
         "Notre rôle est de participer à l'effort collectif en apportant des solutions concrètes et complémentaires.",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/images/partenaires.png",
       alt: "Collaboration avec les acteurs locaux",
       link: "#contact",
       linkText: "Échanger avec nous",
