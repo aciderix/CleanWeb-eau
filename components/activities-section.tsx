@@ -76,7 +76,7 @@ export default function ActivitiesSection() {
           <h2>Nos activités phares</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 mt-12">
+        <div className="grid md:grid-cols-3 gap-8 mt-12">
           {activities.map((activity, index) => (
             <motion.div
               key={index}
@@ -95,7 +95,7 @@ export default function ActivitiesSection() {
                 },
               }}
             >
-              <div className="relative h-64">
+              <div className="relative h-80">
                 <Image src={activity.image || "/placeholder.svg"} alt={activity.alt} fill className="object-cover" />
               </div>
               <div className="p-6">
