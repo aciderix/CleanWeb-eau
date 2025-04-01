@@ -1,0 +1,6 @@
+# Redirect any admin routes to the homepage
+/admin/* / 301
+
+# Handle 404s by redirecting to the homepage
+/* /index.html 200
+
