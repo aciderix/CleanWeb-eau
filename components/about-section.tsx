@@ -68,7 +68,7 @@ export default function AboutSection() {
             }}
           >
             <Image
-              src="/placeholder.svg?height=600&width=800"
+              src="/images/rive.jpeg"
               alt="Vue d'une rivière nantaise"
               fill
               className="object-cover"
