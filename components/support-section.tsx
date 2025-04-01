@@ -86,10 +86,10 @@ export default function SupportSection() {
             }}
           >
             <Image
-              src="/placeholder.svg?height=600&width=800"
+              src="/images/Clean-logo.png"
               alt="Soutenez C.L.E.A.N."
               fill
-              className="object-cover"
+              className="object-contain"
             />
           </motion.div>
         </div>
