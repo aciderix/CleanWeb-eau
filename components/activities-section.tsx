@@ -80,7 +80,7 @@ export default function ActivitiesSection() {
           {activities.map((activity, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group"
               initial="hidden"
               animate={controls}
               variants={{
@@ -95,11 +95,16 @@ export default function ActivitiesSection() {
                 },
               }}
             >
-              <div className="relative h-80">
-                <Image src={activity.image || "/placeholder.svg"} alt={activity.alt} fill className="object-cover" />
+              <div className="relative h-80 overflow-hidden">
+                <Image 
+                  src={activity.image || "/placeholder.svg"} 
+                  alt={activity.alt} 
+                  fill 
+                  className="object-cover transition-transform duration-500 group-hover:scale-105" 
+                />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-4">{activity.title}</h3>
+                <h3 className="text-xl font-semibold mb-4 transition-colors duration-300 group-hover:text-primary">{activity.title}</h3>
                 <p className="text-gray-600 mb-3">{activity.description}</p>
                 {activity.highlight && <p className="text-primary font-medium mb-4">{activity.highlight}</p>}
                 <Link
@@ -107,7 +112,7 @@ export default function ActivitiesSection() {
                   className="inline-flex items-center text-primary hover:text-secondary transition-colors duration-300"
                 >
                   {activity.linkText}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
             </motion.div>

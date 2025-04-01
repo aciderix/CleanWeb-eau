@@ -59,7 +59,7 @@ export default function AboutSection() {
           </motion.div>
 
           <motion.div
-            className="relative h-[400px] rounded-lg overflow-hidden"
+            className="relative h-[400px] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 group"
             initial="hidden"
             animate={controls}
             variants={{
@@ -71,7 +71,7 @@ export default function AboutSection() {
               src="/images/rive.jpeg"
               alt="Vue d'une rivière nantaise"
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </motion.div>
         </div>
