@@ -27,7 +27,7 @@ export default function AboutSection() {
             visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
           }}
         >
-          <h2>À propos de nous !</h2>
+          <h2>À propos de nous</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 mt-12">
