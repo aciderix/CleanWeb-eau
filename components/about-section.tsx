@@ -39,13 +39,12 @@ export default function AboutSection() {
               visible: { opacity: 1, x: 0, transition: { duration: 0.6, delay: 0.3 } },
             }}
           >
-            <p className="text-lg mb-6"><strong>C.L.E.A.N.</strong> - Conservation de l'Eau À Nantes - est une association créée le 4 avril 2022
-              avec pour mission de réduire activement les déchets dans les rivières nantaises.</p>
+            <p className="text-lg mb-6"><strong>C.L.E.A.N.</strong> - Conservation de l'Eau À Nantes - est une association créée le 4 avril 2022 avec pour mission de réduire activement les déchets dans les rivières nantaises.</p>
             <p className="mb-6">Actuellement, nous intervenons principalement sur l'Erdre, avec quelques actions ponctuelles sur la Loire.
               Notre objectif est d'étendre progressivement notre présence sur l'ensemble du réseau hydrographique
               nantais.</p>
             <p className="mb-6">Notre approche combine des solutions pratiques (comme les bacs à déchets), des collectes régulières, et
-              une démarche collaborative impliquant usagers, associations et collectivités.</p>
+              une démarche collaborative impliquant usagers, associations et collectivités...</p>
             <p>Notre ambition est de devenir un acteur efficace et durable dans la protection des cours d'eau nantais, en
               menant des actions concrètes et en mobilisant le plus grand nombre. Rejoignez-nous dans cette aventure !</p>
           </motion.div>
