@@ -18,7 +18,7 @@ export default function EventsSection() {
 
   const events = [
     {
-      title: "Première Éco-Navigation avec La Toue",
+      title: "Première Éco-Navigation avec La Toue !",
       description:
         "Nettoyage de l'Erdre à bord d'une toue traditionnelle. Venez découvrir la rivière tout en participant à sa préservation.",
       date: "Événement passé",
