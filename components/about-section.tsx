@@ -44,7 +44,7 @@ export default function AboutSection() {
               Notre objectif est d'étendre progressivement notre présence sur l'ensemble du réseau hydrographique
               nantais.</p>
             <p className="mb-6">Notre approche combine des solutions pratiques (comme les bacs à déchets), des collectes régulières, et
-              une démarche collaborative impliquant usagers, associations et collectivités...</p>
+              une démarche collaborative impliquant usagers, associations et collectivités.</p>
             <p>Notre ambition est de devenir un acteur efficace et durable dans la protection des cours d'eau nantais, en
               menant des actions concrètes et en mobilisant le plus grand nombre. Rejoignez-nous dans cette aventure !</p>
           </motion.div>
