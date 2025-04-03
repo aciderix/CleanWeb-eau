@@ -46,16 +46,6 @@ export default function EventsSection() {
       location: "Différents points sur l'Erdre",
       link: "#contact",
       linkText: "Nous contacter",
-    },
-
-    {
-      title: "test",
-      description:
-        "test",
-      date: "01/09/2025",
-      location: "chez moi",
-      link: "#approach",
-      linkText: "test ca",
     }
 ]
 
