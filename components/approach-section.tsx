@@ -51,12 +51,6 @@ export default function ApproachSection() {
       title: "Documentation",
       description: "Observer et documenter l'état des rivières pour adapter nos actions et partager notre expérience.",
       icon: <FileText className="h-12 w-12 text-primary" />,
-    },
-
-    {
-      title: "test",
-      description: "test",
-      icon: <Shield className="h-12 w-12 text-primary" />,
     }
 ]
 
