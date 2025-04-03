@@ -17,36 +17,40 @@ export default function ApproachSection() {
 
   const approaches = [
     {
-      title: "Pr√©vention",
-      description: "Sensibiliser et encourager les changements de comportement pour limiter les d√©chets √† la source.",
+      title: "PrÈvention",
+      description: "Sensibiliser et encourager les changements de comportement pour limiter les dÈchets ‡ la source.",
       icon: <Shield className="h-12 w-12 text-primary" />,
     },
     {
       title: "Animation",
-      description: "Participer √† des √©v√©nements comme les Rendez-vous de l'Erdre pour cr√©er du lien et sensibiliser.",
+      description: "Participer ‡ des ÈvÈnements comme les Rendez-vous de l'Erdre pour crÈer du lien et sensibiliser.",
       icon: <MessageCircle className="h-12 w-12 text-primary" />,
     },
     {
-      title: "R√©duction",
-      description:
-        "Identifier les zones d'accumulation et mettre en place des solutions pratiques comme les bacs √† d√©chets.",
+      title: "RÈduction",
+      description: "",
       icon: <TrendingDown className="h-12 w-12 text-primary" />,
     },
     {
       title: "Collecte",
-      description: "Organiser des sorties de nettoyage sur l'Erdre et la Loire en mobilisant des b√©n√©voles.",
+      description: "Organiser des sorties de nettoyage sur l'Erdre et la Loire en mobilisant des bÈnÈvoles.",
       icon: <Trash2 className="h-12 w-12 text-primary" />,
     },
     {
       title: "Collaboration",
-      description: "Travailler avec les associations, collectivit√©s et usagers pour une approche coordonn√©e.",
+      description: "Travailler avec les associations, collectivitÈs et usagers pour une approche coordonnÈe.",
       icon: <Users className="h-12 w-12 text-primary" />,
     },
     {
       title: "Documentation",
-      description: "Observer et documenter l'√©tat des rivi√®res pour adapter nos actions et partager notre exp√©rience.",
+      description: "Observer et documenter l'Ètat des riviËres pour adapter nos actions et partager notre expÈrience.",
       icon: <FileText className="h-12 w-12 text-primary" />,
     },
+    {
+      title: "test",
+      description: "<strong>Description</strong> de la nouvelle approche.",
+      icon: <Activity className="h-12 w-12 text-primary" />,
+    }
   ]
 
   return (
@@ -61,7 +65,7 @@ export default function ApproachSection() {
             visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
           }}
         >
-          <h2>Notre Approche : Agir √† Tous les Niveaux</h2>
+          <h2>Notre Approche : Agir ‡ Tous les Niveaux</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
