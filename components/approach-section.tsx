@@ -16,38 +16,49 @@ export default function ApproachSection() {
   }, [isInView, controls])
 
   const approaches = [
+
     {
       title: "Prévention",
       description: "Sensibiliser et encourager les changements de comportement pour limiter les déchets à la source.",
       icon: <Shield className="h-12 w-12 text-primary" />,
     },
+
     {
       title: "Animation",
       description: "Participer à des événements comme les Rendez-vous de l'Erdre pour créer du lien et sensibiliser.",
       icon: <MessageCircle className="h-12 w-12 text-primary" />,
     },
+
     {
       title: "Réduction",
-      description:
-        "Identifier les zones d'accumulation et mettre en place des solutions pratiques comme les bacs à déchets.",
+      description: "Identifier les zones d'accumulation et mettre en place des solutions pratiques comme les bacs à déchets.",
       icon: <TrendingDown className="h-12 w-12 text-primary" />,
     },
+
     {
       title: "Collecte",
       description: "Organiser des sorties de nettoyage sur l'Erdre et la Loire en mobilisant des bénévoles.",
       icon: <Trash2 className="h-12 w-12 text-primary" />,
     },
+
     {
       title: "Collaboration",
       description: "Travailler avec les associations, collectivités et usagers pour une approche coordonnée.",
       icon: <Users className="h-12 w-12 text-primary" />,
     },
+
     {
       title: "Documentation",
       description: "Observer et documenter l'état des rivières pour adapter nos actions et partager notre expérience.",
       icon: <FileText className="h-12 w-12 text-primary" />,
     },
-  ]
+
+    {
+      title: "test",
+      description: "test",
+      icon: <Shield className="h-12 w-12 text-primary" />,
+    }
+]
 
   return (
     <section id="approach" ref={ref} className="py-20">
