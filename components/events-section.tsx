@@ -17,6 +17,7 @@ export default function EventsSection() {
   }, [isInView, controls])
 
   const events = [
+
     {
       title: "Première Éco-Navigation avec La Toue !",
       description:
@@ -26,6 +27,7 @@ export default function EventsSection() {
       link: "https://www.facebook.com/clean.eau.nantes",
       linkText: "Voir sur Facebook",
     },
+
     {
       title: "Rendez-vous de l'Erdre",
       description:
@@ -35,6 +37,7 @@ export default function EventsSection() {
       link: "#contact",
       linkText: "Plus d'informations",
     },
+
     {
       title: "Collectes sur l'Erdre",
       description:
@@ -44,7 +47,17 @@ export default function EventsSection() {
       link: "#contact",
       linkText: "Nous contacter",
     },
-  ]
+
+    {
+      title: "test",
+      description:
+        "test",
+      date: "01/09/2025",
+      location: "chez moi",
+      link: "#approach",
+      linkText: "test ca",
+    }
+]
 
   return (
     <section id="events" ref={ref} className="py-20 bg-gray-50">
