@@ -59,7 +59,7 @@ export default function AboutSection() {
             }}
           >
             <Image
-              src="/images/bateau.png"
+              src="/images/visuel-couverture-fb.png"
               alt="Vue d'une rivière nantaise"
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
