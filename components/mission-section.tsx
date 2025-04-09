@@ -33,6 +33,12 @@ export default function MissionSection() {
       description:
         "Contribuer à la dynamique locale en travaillant avec les associations, collectivités et usagers. Adopter une approche complémentaire et développer des solutions innovantes comme les BADS (Bacs à Déchets Sauvages).",
       icon: <Users className="h-16 w-16 text-primary" />,
+    },
+    {
+      title: "Nouvelle mission t",
+      description:
+        "Description de la nouvelle mission",
+      icon: <Heart className="h-16 w-16 text-primary" />,
     }
   ]
 
