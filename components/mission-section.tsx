@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { motion, useInView, useAnimation } from "framer-motion"
-import { Waves, Sprout, Users } from "lucide-react"
+import { Waves, Sprout, Users, Heart } from "lucide-react"
 
 export default function MissionSection() {
   const ref = useRef<HTMLDivElement>(null)
@@ -35,7 +35,7 @@ export default function MissionSection() {
       icon: <Users className="h-16 w-16 text-primary" />,
     },
     {
-      title: "Nouvelle mission t",
+      title: "Nouvelle mission",
       description:
         "Description de la nouvelle mission",
       icon: <Heart className="h-16 w-16 text-primary" />,
