@@ -23,7 +23,7 @@ export default function ActivitiesSection() {
       description:
         "Déploiement de Bacs à Déchets Sauvages (BADS) sur les rivières, en commençant par l'Erdre, pour permettre aux usagers de collecter les déchets flottants qu'ils rencontrent.",
       highlight: "Rejoignez le mouvement BADS et contribuez à la préservation de nos rivières !",
-      image: "/images/bac.jpg",
+      image: "/images/bac2.jpg",
       alt: "Bac à déchets sauvages",
       link: "#contact",
       linkText: "Participer au projet BADS",
