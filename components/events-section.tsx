@@ -39,13 +39,13 @@ export default function EventsSection() {
     },
 
     {
-      title: "Collectes sur l'Erdre",
+      title: "Collecte en Toue cabanée",
       description:
-        "Actions régulières de nettoyage des berges et de la rivière. Matériel fourni, venez comme vous êtes !",
-      date: "En continu",
-      location: "Différents points sur l'Erdre",
+        "Nettoyage des berges et de la rivière. Matériel fourni, venez comme vous êtes ! Inscription par mail",
+      date: "Dimanche 27 juillet",
+      location: "Erdre",
       link: "#contact",
-      linkText: "Nous contacter",
+      linkText: "S'inscrire",
     }
 ]
 
