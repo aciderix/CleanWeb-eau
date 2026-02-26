@@ -1,8 +1,46 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Phone, Mail, MapPin } from "lucide-react"
+import { supabase } from "@/lib/supabase"
+
+const defaultContent = {
+  description: "Conservation de l'Eau à Nantes est une association dédiée à la protection des cours d'eau nantais, avec pour objectif le Zéro Déchet dans nos rivières.",
+  email: "clean.eau.nantes@lilo.org",
+  phone: "06 76 69 50 26",
+  address: "Péniche le Sémaphore, Quai Malakoff, 44000 Nantes, France",
+  copyright_text: "C.L.E.A.N.",
+}
 
 export default function Footer() {
+  const [content, setContent] = useState(defaultContent)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchContent() {
+      try {
+        const { data, error } = await supabase
+          .from("site_content")
+          .select("content")
+          .eq("section_key", "footer")
+          .single()
+        if (!error && data?.content) {
+          setContent({ ...defaultContent, ...data.content })
+        }
+      } catch {
+        // fallback to defaults
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchContent()
+  }, [])
+
+  const phoneHref = `tel:${content.phone.replace(/\s/g, "")}`
+  const emailHref = `mailto:${content.email}`
+
   return (
     <footer className="bg-darkblue text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
@@ -18,8 +56,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-300 mb-4">
-              Conservation de l'Eau à Nantes est une association dédiée à la protection des cours d'eau nantais, avec
-              pour objectif le Zéro Déchet dans nos rivières.
+              {content.description}
             </p>
           </div>
 
@@ -71,31 +108,30 @@ export default function Footer() {
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-secondary" />
                 <Link
-                  href="mailto:clean.eau.nantes@lilo.org"
+                  href={emailHref}
                   className="text-gray-300 hover:text-white transition-colors duration-300"
                 >
-                  clean.eau.nantes@lilo.org
+                  {content.email}
                 </Link>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-secondary" />
-                <Link href="tel:0676695026" className="text-gray-300 hover:text-white transition-colors duration-300">
-                  06 76 69 50 26
+                <Link href={phoneHref} className="text-gray-300 hover:text-white transition-colors duration-300">
+                  {content.phone}
                 </Link>
               </li>
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-secondary mt-1" />
-                <span className="text-gray-300">Péniche le Sémaphore, Quai Malakoff, 44000 Nantes, France</span>
+                <span className="text-gray-300">{content.address}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-700 pt-8 text-center text-gray-400">
-          <p>© 2024 C.L.E.A.N. - Conservation de l'Eau À Nantes. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} {content.copyright_text} - Conservation de l&apos;Eau À Nantes. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
   )
 }
-

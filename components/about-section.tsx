@@ -1,13 +1,48 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { motion, useInView, useAnimation } from "framer-motion"
+import { supabase } from "@/lib/supabase"
+
+const defaultContent = {
+  section_title: "À propos de nous",
+  paragraphs: [
+    "<strong>C.L.E.A.N.</strong> - Conservation de l'Eau À Nantes - est une association créée le 4 avril 2022 avec pour mission de réduire activement les déchets dans les rivières nantaises.",
+    "Actuellement, nous intervenons principalement sur l'Erdre, avec quelques actions ponctuelles sur la Loire. Notre objectif est d'étendre progressivement notre présence sur l'ensemble du réseau hydrographique nantais.",
+    "Notre approche combine des solutions pratiques (comme les bacs à déchets), des collectes régulières, et une démarche collaborative impliquant usagers, associations et collectivités.",
+    "Notre ambition est de devenir un acteur efficace et durable dans la protection des cours d'eau nantais, en menant des actions concrètes et en mobilisant le plus grand nombre. Rejoignez-nous dans cette aventure !",
+  ],
+  image_url: "/images/rive.jpeg",
+  image_alt: "Vue d'une rivière nantaise",
+}
 
 export default function AboutSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const controls = useAnimation()
+  const [content, setContent] = useState(defaultContent)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchContent() {
+      try {
+        const { data, error } = await supabase
+          .from("site_content")
+          .select("content")
+          .eq("section_key", "about")
+          .single()
+        if (!error && data?.content) {
+          setContent({ ...defaultContent, ...data.content })
+        }
+      } catch {
+        // fallback to defaults
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchContent()
+  }, [])
 
   useEffect(() => {
     if (isInView) {
@@ -27,7 +62,7 @@ export default function AboutSection() {
             visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
           }}
         >
-          <h2>À propos de nous</h2>
+          <h2>{content.section_title}</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 mt-12">
@@ -39,14 +74,13 @@ export default function AboutSection() {
               visible: { opacity: 1, x: 0, transition: { duration: 0.6, delay: 0.3 } },
             }}
           >
-            <p className="text-lg mb-6"><strong>C.L.E.A.N.</strong> - Conservation de l'Eau À Nantes - est une association créée le 4 avril 2022 avec pour mission de réduire activement les déchets dans les rivières nantaises.</p>
-            <p className="mb-6">Actuellement, nous intervenons principalement sur l'Erdre, avec quelques actions ponctuelles sur la Loire.
-              Notre objectif est d'étendre progressivement notre présence sur l'ensemble du réseau hydrographique
-              nantais.</p>
-            <p className="mb-6">Notre approche combine des solutions pratiques (comme les bacs à déchets), des collectes régulières, et
-              une démarche collaborative impliquant usagers, associations et collectivités.</p>
-            <p>Notre ambition est de devenir un acteur efficace et durable dans la protection des cours d'eau nantais, en
-              menant des actions concrètes et en mobilisant le plus grand nombre. Rejoignez-nous dans cette aventure !</p>
+            {content.paragraphs.map((paragraph, index) => (
+              <p
+                key={index}
+                className={index < content.paragraphs.length - 1 ? "text-lg mb-6" : "text-lg"}
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
+            ))}
           </motion.div>
 
           <motion.div
@@ -59,8 +93,8 @@ export default function AboutSection() {
             }}
           >
             <Image
-              src="/images/rive.jpeg"
-              alt="Vue d'une rivière nantaise"
+              src={content.image_url}
+              alt={content.image_alt}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
@@ -70,4 +104,3 @@ export default function AboutSection() {
     </section>
   )
 }
-

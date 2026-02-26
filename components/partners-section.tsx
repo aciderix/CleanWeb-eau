@@ -1,58 +1,94 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useInView, useAnimation } from "framer-motion"
+import { supabase } from "@/lib/supabase"
+
+interface Partner {
+  id: string
+  name: string
+  logo_url: string
+  website_url: string
+  sort_order: number
+  is_visible: boolean
+}
+
+const defaultPartners = [
+  {
+    name: "Fédération des Amis de l'Erdre",
+    logo_url: "/images/amis-erdre.png",
+    website_url: "https://federation-des-amis-de-l-erdre.org",
+  },
+  {
+    name: "ECOPOLE",
+    logo_url: "/images/ecopole.png",
+    website_url: "https://ecopole.org",
+  },
+  {
+    name: "Swim for the Planet",
+    logo_url: "/images/swim.jpg",
+    website_url: "https://www.helloasso.com/swim-for-the-planet",
+  },
+  {
+    name: "Nantes Métropole",
+    logo_url: "/images/nantes.png",
+    website_url: "https://metropole.nantes.fr",
+  },
+  {
+    name: "NGE - Ports de Nantes",
+    logo_url: "/images/nge.png",
+    website_url: "https://ports-nantes.fr",
+  },
+  {
+    name: "ACE",
+    logo_url: "/images/ace.png",
+    website_url: "https://ace-nantes.fr",
+  },
+  {
+    name: "Océan Fest",
+    logo_url: "/images/ocean-fest-logo.jpg",
+    website_url: "https://oceanfest.fr",
+  },
+]
 
 export default function PartnersSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const controls = useAnimation()
+  const [partners, setPartners] = useState(defaultPartners)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchPartners() {
+      try {
+        const { data, error } = await supabase
+          .from("partners")
+          .select("*")
+          .eq("is_visible", true)
+          .order("sort_order", { ascending: true })
+        if (!error && data && data.length > 0) {
+          setPartners(data.map((p: Partner) => ({
+            name: p.name,
+            logo_url: p.logo_url,
+            website_url: p.website_url,
+          })))
+        }
+      } catch {
+        // fallback to defaults
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchPartners()
+  }, [])
 
   useEffect(() => {
     if (isInView) {
       controls.start("visible")
     }
   }, [isInView, controls])
-
-  const partners = [
-    {
-      name: "Fédération des Amis de l'Erdre",
-      logo: "/images/amis-erdre.png",
-      website: "https://federation-des-amis-de-l-erdre.org",
-    },
-    {
-      name: "ECOPOLE",
-      logo: "/images/ecopole.png",
-      website: "https://ecopole.org",
-    },
-    {
-      name: "Swim for the Planet",
-      logo: "/images/swim.jpg",
-      website: "https://www.helloasso.com/swim-for-the-planet",
-    },
-    {
-      name: "Nantes Métropole",
-      logo: "/images/nantes.png",
-      website: "https://metropole.nantes.fr",
-    },
-    {
-      name: "NGE - Ports de Nantes",
-      logo: "/images/nge.png",
-      website: "https://ports-nantes.fr",
-    },
-    {
-      name: "ACE",
-      logo: "/images/ace.png",
-      website: "https://ace-nantes.fr",
-    },
-    {
-      name: "Océan Fest",
-      logo: "/images/ocean-fest-logo.jpg",
-      website: "https://oceanfest.fr",
-    },
-  ]
 
   return (
     <section id="partners" ref={ref} className="py-20 bg-gray-50">
@@ -89,13 +125,13 @@ export default function PartnersSection() {
               }}
             >
               <Link
-                href={partner.website}
+                href={partner.website_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center justify-center h-32 w-full"
               >
                 <Image
-                  src={partner.logo || "/placeholder.svg"}
+                  src={partner.logo_url || "/placeholder.svg"}
                   alt={partner.name}
                   width={150}
                   height={150}
@@ -109,4 +145,3 @@ export default function PartnersSection() {
     </section>
   )
 }
-

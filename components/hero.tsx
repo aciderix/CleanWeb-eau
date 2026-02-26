@@ -2,12 +2,45 @@
 
 import type React from "react"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { supabase } from "@/lib/supabase"
+
+const defaultContent = {
+  title: "Zéro Déchet pour les Rivières de Nantes",
+  subtitle: "Agissons ensemble pour des rivières plus propres",
+  background_image_url: "/images/river-background.png",
+  cta_primary_text: "Nous soutenir",
+  cta_primary_link: "#support",
+  cta_secondary_text: "Découvrir nos actions",
+  cta_secondary_link: "#activities",
+}
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
+  const [content, setContent] = useState(defaultContent)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchContent() {
+      try {
+        const { data, error } = await supabase
+          .from("site_content")
+          .select("content")
+          .eq("section_key", "hero")
+          .single()
+        if (!error && data?.content) {
+          setContent({ ...defaultContent, ...data.content })
+        }
+      } catch {
+        // fallback to defaults
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchContent()
+  }, [])
 
   useEffect(() => {
     const handleParallax = () => {
@@ -52,7 +85,7 @@ export default function Hero() {
       className="relative w-full h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url('/images/river-background.png')",
+          `linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url('${content.background_image_url}')`,
         width: "100vw",
         backgroundSize: "cover",
         backgroundPosition: "center 50%",
@@ -67,7 +100,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Zéro Déchet pour les Rivières de Nantes
+          {content.title}
         </motion.h1>
         <motion.p
           className="text-xl md:text-2xl mb-8 text-white text-shadow-md"
@@ -75,7 +108,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Agissons ensemble pour des rivières plus propres
+          {content.subtitle}
         </motion.p>
         <motion.div
           className="flex flex-col sm:flex-row justify-center gap-4"
@@ -83,15 +116,14 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <Link href="#support" className="btn-primary" onClick={(e) => handleLinkClick(e, "#support")}>
-            Nous soutenir
+          <Link href={content.cta_primary_link} className="btn-primary" onClick={(e) => handleLinkClick(e, content.cta_primary_link)}>
+            {content.cta_primary_text}
           </Link>
-          <Link href="#activities" className="btn-secondary" onClick={(e) => handleLinkClick(e, "#activities")}>
-            Découvrir nos actions
+          <Link href={content.cta_secondary_link} className="btn-secondary" onClick={(e) => handleLinkClick(e, content.cta_secondary_link)}>
+            {content.cta_secondary_text}
           </Link>
         </motion.div>
       </div>
     </div>
   )
 }
-

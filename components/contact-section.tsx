@@ -9,11 +9,23 @@ import { Phone, Mail, MapPin, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { supabase } from "@/lib/supabase"
+
+const defaultContent = {
+  section_title: "Contactez-nous",
+  phone: "06 76 69 50 26",
+  email: "clean.eau.nantes@lilo.org",
+  address: "Péniche le Sémaphore, Quai Malakoff, 44000 Nantes, France",
+  instagram_url: "https://www.instagram.com/clean.eau.nantes/",
+  formspree_endpoint: "https://formspree.io/f/meoarqrk",
+}
 
 export default function ContactSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const controls = useAnimation()
+  const [content, setContent] = useState(defaultContent)
+  const [isLoading, setIsLoading] = useState(true)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +36,26 @@ export default function ContactSection() {
     type: "success" | "error" | null
     message: string
   }>({ type: null, message: "" })
+
+  useEffect(() => {
+    async function fetchContent() {
+      try {
+        const { data, error } = await supabase
+          .from("site_content")
+          .select("content")
+          .eq("section_key", "contact")
+          .single()
+        if (!error && data?.content) {
+          setContent({ ...defaultContent, ...data.content })
+        }
+      } catch {
+        // fallback to defaults
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchContent()
+  }, [])
 
   useEffect(() => {
     if (isInView) {
@@ -42,7 +74,7 @@ export default function ContactSection() {
 
     try {
       // Utilisation de Formspree pour l'envoi du formulaire
-      const response = await fetch("https://formspree.io/f/meoarqrk", {
+      const response = await fetch(content.formspree_endpoint, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -75,6 +107,12 @@ export default function ContactSection() {
     }
   }
 
+  const phoneHref = `tel:${content.phone.replace(/\s/g, "")}`
+  const emailHref = `mailto:${content.email}`
+  const instagramHandle = content.instagram_url.includes("instagram.com/")
+    ? `@${content.instagram_url.split("instagram.com/")[1].replace(/\/$/, "")}`
+    : "@clean.eau.nantes"
+
   return (
     <section id="contact" ref={ref} className="py-20">
       <div className="container mx-auto px-4">
@@ -87,7 +125,7 @@ export default function ContactSection() {
             visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
           }}
         >
-          <h2>Contactez-nous</h2>
+          <h2>{content.section_title}</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 mt-12">
@@ -107,10 +145,10 @@ export default function ContactSection() {
                 <div>
                   <h3 className="text-lg font-semibold mb-1">Téléphone</h3>
                   <Link
-                    href="tel:0676695026"
+                    href={phoneHref}
                     className="text-gray-600 hover:text-primary transition-colors duration-300"
                   >
-                    06 76 69 50 26
+                    {content.phone}
                   </Link>
                 </div>
               </div>
@@ -122,10 +160,10 @@ export default function ContactSection() {
                 <div>
                   <h3 className="text-lg font-semibold mb-1">Email</h3>
                   <Link
-                    href="mailto:clean.eau.nantes@lilo.org"
+                    href={emailHref}
                     className="text-gray-600 hover:text-primary transition-colors duration-300"
                   >
-                    clean.eau.nantes@lilo.org
+                    {content.email}
                   </Link>
                 </div>
               </div>
@@ -136,7 +174,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-1">Adresse</h3>
-                  <p className="text-gray-600">Péniche le Sémaphore, Quai Malakoff, 44000 Nantes, France</p>
+                  <p className="text-gray-600">{content.address}</p>
                   <p className="text-sm text-gray-500 mt-1">(Siège social pour correspondance)</p>
                 </div>
               </div>
@@ -148,12 +186,12 @@ export default function ContactSection() {
                 <div>
                   <h3 className="text-lg font-semibold mb-1">Réseaux sociaux</h3>
                   <Link
-                    href="https://www.instagram.com/clean.eau.nantes/"
+                    href={content.instagram_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-primary transition-colors duration-300"
                   >
-                    @clean.eau.nantes
+                    {instagramHandle}
                   </Link>
                 </div>
               </div>
@@ -168,7 +206,7 @@ export default function ContactSection() {
               visible: { opacity: 1, x: 0, transition: { duration: 0.6, delay: 0.5 } },
             }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6" action="https://formspree.io/f/meoarqrk" method="POST">
+            <form onSubmit={handleSubmit} className="space-y-6" action={content.formspree_endpoint} method="POST">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Nom
@@ -230,4 +268,3 @@ export default function ContactSection() {
     </section>
   )
 }
-
