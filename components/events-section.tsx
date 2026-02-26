@@ -17,6 +17,20 @@ interface Event {
   sort_order: number
 }
 
+function normalizeUrl(url: string): string {
+  if (!url) return "#"
+  // Internal anchors and relative paths are fine
+  if (url.startsWith("#") || url.startsWith("/")) return url
+  // Already has protocol
+  if (url.startsWith("http://") || url.startsWith("https://")) return url
+  // Add https:// prefix
+  return "https://" + url
+}
+
+function isExternalLink(url: string): boolean {
+  return url.startsWith("http://") || url.startsWith("https://")
+}
+
 export default function EventsSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -72,47 +86,50 @@ export default function EventsSection() {
           <p className="text-center text-gray-500 mt-12">Aucun événement pour le moment.</p>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {events.map((event, index) => (
-              <motion.div
-                key={event.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
-                initial="hidden"
-                animate={controls}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      duration: 0.5,
-                      delay: 0.1 * index,
+            {events.map((event, index) => {
+              const href = normalizeUrl(event.link)
+              const external = isExternalLink(href)
+              return (
+                <motion.div
+                  key={event.id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
+                  initial="hidden"
+                  animate={controls}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.5,
+                        delay: 0.1 * index,
+                      },
                     },
-                  },
-                }}
-              >
-                <div className="p-6">
-                  <div className="flex items-center text-secondary mb-2">
-                    <Calendar className="h-5 w-5 mr-2" />
-                    <span>{event.date}</span>
+                  }}
+                >
+                  <div className="p-6">
+                    <div className="flex items-center text-secondary mb-2">
+                      <Calendar className="h-5 w-5 mr-2" />
+                      <span>{event.date}</span>
+                    </div>
+                    <div className="flex items-center text-gray-500 mb-4">
+                      <MapPin className="h-5 w-5 mr-2" />
+                      <span>{event.location}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3">{event.title}</h3>
+                    <p className="text-gray-600 mb-4">{event.description}</p>
+                    <Link
+                      href={href}
+                      className="inline-flex items-center text-primary hover:text-secondary transition-colors duration-300"
+                      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    >
+                      {event.link_text}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
                   </div>
-                  <div className="flex items-center text-gray-500 mb-4">
-                    <MapPin className="h-5 w-5 mr-2" />
-                    <span>{event.location}</span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">{event.title}</h3>
-                  <p className="text-gray-600 mb-4">{event.description}</p>
-                  <Link
-                    href={event.link || "#"}
-                    className="inline-flex items-center text-primary hover:text-secondary transition-colors duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {event.link_text}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              )
+            })}
           </div>
         )}
       </div>
