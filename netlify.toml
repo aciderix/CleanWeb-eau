@@ -8,3 +8,21 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Ensure admin and API routes are handled by Next.js, not redirected
+[[redirects]]
+  from = "/admin"
+  to = "/admin"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "/api/:splat"
+  status = 200
+  force = true
