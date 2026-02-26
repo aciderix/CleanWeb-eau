@@ -18,37 +18,37 @@ interface Partner {
 const defaultPartners = [
   {
     name: "Fédération des Amis de l'Erdre",
-    logo_url: "/images/amis-erdre.png",
+    logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/amis-erdre.png",
     website_url: "https://federation-des-amis-de-l-erdre.org",
   },
   {
     name: "ECOPOLE",
-    logo_url: "/images/ecopole.png",
+    logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/ecopole.png",
     website_url: "https://ecopole.org",
   },
   {
     name: "Swim for the Planet",
-    logo_url: "/images/swim.jpg",
+    logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/swim.jpg",
     website_url: "https://www.helloasso.com/swim-for-the-planet",
   },
   {
     name: "Nantes Métropole",
-    logo_url: "/images/nantes.png",
+    logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/nantes.png",
     website_url: "https://metropole.nantes.fr",
   },
   {
     name: "NGE - Ports de Nantes",
-    logo_url: "/images/nge.png",
+    logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/nge.png",
     website_url: "https://ports-nantes.fr",
   },
   {
     name: "ACE",
-    logo_url: "/images/ace.png",
+    logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/ace.png",
     website_url: "https://ace-nantes.fr",
   },
   {
     name: "Océan Fest",
-    logo_url: "/images/ocean-fest-logo.jpg",
+    logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/ocean-fest-logo.jpg",
     website_url: "https://oceanfest.fr",
   },
 ]

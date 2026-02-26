@@ -17,7 +17,7 @@ const defaultContent = {
   ],
   donation_text: "Faire un don via HelloAsso",
   donation_link: "https://www.helloasso.com/associations/clean-conservation-de-l-eau-a-nantes/formulaires/1",
-  logo_url: "/images/Clean-logo.png",
+  logo_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/Clean-logo.png",
 }
 
 export default function SupportSection() {

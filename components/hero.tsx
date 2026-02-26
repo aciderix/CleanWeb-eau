@@ -10,7 +10,7 @@ import { supabase } from "@/lib/supabase"
 const defaultContent = {
   title: "Zéro Déchet pour les Rivières de Nantes",
   subtitle: "Agissons ensemble pour des rivières plus propres",
-  background_image_url: "/images/river-background.png",
+  background_image_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/river-background.png",
   cta_primary_text: "Nous soutenir",
   cta_primary_link: "#support",
   cta_secondary_text: "Découvrir nos actions",

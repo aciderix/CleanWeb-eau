@@ -26,7 +26,7 @@ const defaultActivities = [
     description:
       "Déploiement de Bacs à Déchets Sauvages (BADS) sur les rivières, en commençant par l'Erdre, pour permettre aux usagers de collecter les déchets flottants qu'ils rencontrent.",
     highlight: "Rejoignez le mouvement BADS et contribuez à la préservation de nos rivières !",
-    image_url: "/images/bac2.jpg",
+    image_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/bac2.jpg",
     image_alt: "Bac à déchets sauvages",
     link: "#contact",
     link_text: "Participer au projet BADS",
@@ -36,7 +36,7 @@ const defaultActivities = [
     description:
       "Sorties en bateau, canoë ou paddle combinant découverte du patrimoine naturel et nettoyage des cours d'eau (Erdre, Loire et affluents).",
     highlight: "Explorez l'Erdre sous un nouveau jour tout en agissant pour sa préservation.",
-    image_url: "/images/bateau.png",
+    image_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/bateau.png",
     image_alt: "Éco-Navigation sur l'Erdre",
     link: "#contact",
     link_text: "S'inscrire à une Éco-Navigation",
@@ -46,7 +46,7 @@ const defaultActivities = [
     description:
       "Rencontre avec le public lors d'événements comme les Rendez-vous de l'Erdre pour partager nos observations et montrer comment chacun peut participer.",
     highlight: "",
-    image_url: "/images/sensibilisation.jpg",
+    image_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/sensibilisation.jpg",
     image_alt: "Sensibilisation et éducation",
     link: "#contact",
     link_text: "Nous rencontrer",
@@ -57,7 +57,7 @@ const defaultActivities = [
       "Travailler avec tous les acteurs concernés par la préservation des cours d'eau, participer à la réflexion collective et apporter notre expérience de terrain.",
     highlight:
       "Notre rôle est de participer à l'effort collectif en apportant des solutions concrètes et complémentaires.",
-    image_url: "/images/partenaires.png",
+    image_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/partenaires.png",
     image_alt: "Collaboration avec les acteurs locaux",
     link: "#contact",
     link_text: "Échanger avec nous",

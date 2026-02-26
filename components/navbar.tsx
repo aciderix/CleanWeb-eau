@@ -49,7 +49,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <Image
-            src="/images/Clean-logo-blanc.png"
+            src="https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/Clean-logo-blanc.png"
             alt="C.L.E.A.N. Logo"
             width={150}
             height={50}

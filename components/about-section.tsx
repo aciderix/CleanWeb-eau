@@ -13,7 +13,7 @@ const defaultContent = {
     "Notre approche combine des solutions pratiques (comme les bacs à déchets), des collectes régulières, et une démarche collaborative impliquant usagers, associations et collectivités.",
     "Notre ambition est de devenir un acteur efficace et durable dans la protection des cours d'eau nantais, en menant des actions concrètes et en mobilisant le plus grand nombre. Rejoignez-nous dans cette aventure !",
   ],
-  image_url: "/images/rive.jpeg",
+  image_url: "https://fsrfzdbmpywtsifmlria.supabase.co/storage/v1/object/public/images/rive.jpeg",
   image_alt: "Vue d'une rivière nantaise",
 }
 
