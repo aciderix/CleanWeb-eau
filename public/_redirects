@@ -1,6 +1,2 @@
-# Redirect any admin routes to the homepage
-/admin/* / 301
-
-# Handle 404s by redirecting to the homepage
-/* /index.html 200
-
+# Let Next.js handle all routing (including /admin and /api)
+# No custom redirects needed — the @netlify/plugin-nextjs handles everything
