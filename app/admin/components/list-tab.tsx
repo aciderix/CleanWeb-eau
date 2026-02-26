@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 export interface FieldConfig {
   key: string;
   label: string;
-  type: 'text' | 'textarea' | 'number' | 'boolean' | 'select';
+  type: 'text' | 'textarea' | 'number' | 'boolean' | 'select' | 'image';
   required?: boolean;
   defaultValue?: any;
   options?: { value: string; label: string }[];
@@ -33,6 +33,7 @@ export default function ListTab({
   const [isNew, setIsNew] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const fetchItems = useCallback(async () => {
     setLoading(true);
@@ -141,6 +142,28 @@ export default function ListTab({
 
   const updateField = (key: string, value: any) => {
     setEditingItem({ ...editingItem, [key]: value });
+  };
+
+  const handleImageUpload = async (key: string, file: File) => {
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        updateField(key, data.url);
+      } else {
+        setMessage('Erreur lors de l\'upload de l\'image');
+      }
+    } catch {
+      setMessage('Erreur réseau lors de l\'upload');
+    }
+    setUploading(false);
   };
 
   const hasVisibility = fields.some((f) => f.key === 'is_visible');
@@ -252,6 +275,12 @@ export default function ListTab({
                   {item.icon_name && (
                     <p className="text-gray-400 text-xs mt-1">🎨 Icône: {item.icon_name}</p>
                   )}
+                  {/* Show image preview if present */}
+                  {fields.filter(f => f.type === 'image' && item[f.key]).slice(0, 1).map(f => (
+                    <div key={f.key} className="mt-2">
+                      <img src={item[f.key]} alt="" className="h-16 object-contain rounded bg-gray-700 p-0.5" />
+                    </div>
+                  ))}
                 </div>
                 <div className="flex gap-2 ml-4">
                   {hasVisibility && (
@@ -364,6 +393,46 @@ export default function ListTab({
                         placeholder={field.placeholder}
                         className="w-full bg-gray-700 text-white rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
+                    </div>
+                  );
+                }
+
+                if (field.type === 'image') {
+                  return (
+                    <div key={field.key}>
+                      <label className="block text-sm text-gray-300 mb-1">
+                        {field.label}
+                      </label>
+                      {editingItem[field.key] && (
+                        <div className="mb-2">
+                          <img 
+                            src={editingItem[field.key]} 
+                            alt="Aperçu" 
+                            className="h-24 object-contain rounded-lg bg-gray-700 p-1"
+                          />
+                        </div>
+                      )}
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={editingItem[field.key] || ''}
+                          onChange={(e) => updateField(field.key, e.target.value)}
+                          placeholder="URL de l'image ou uploader ci-dessous"
+                          className="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm"
+                        />
+                        <label className="bg-cyan-700 hover:bg-cyan-600 px-4 py-2.5 rounded-lg cursor-pointer transition text-sm whitespace-nowrap">
+                          {uploading ? '⏳...' : '📤 Upload'}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) handleImageUpload(field.key, file);
+                            }}
+                          />
+                        </label>
+                      </div>
                     </div>
                   );
                 }

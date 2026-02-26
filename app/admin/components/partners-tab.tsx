@@ -9,7 +9,7 @@ interface PartnersTabProps {
 
 const PARTNER_FIELDS: FieldConfig[] = [
   { key: 'name', label: 'Nom', type: 'text', required: true },
-  { key: 'logo_url', label: 'URL du logo', type: 'text' },
+  { key: 'logo_url', label: 'Logo', type: 'image' },
   { key: 'website_url', label: 'URL du site web', type: 'text' },
   { key: 'sort_order', label: 'Ordre', type: 'number', defaultValue: 0 },
   { key: 'is_visible', label: 'Visible', type: 'boolean', defaultValue: true },

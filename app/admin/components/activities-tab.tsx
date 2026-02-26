@@ -11,7 +11,7 @@ const ACTIVITY_FIELDS: FieldConfig[] = [
   { key: 'title', label: 'Titre', type: 'text', required: true },
   { key: 'description', label: 'Description', type: 'textarea', required: true },
   { key: 'highlight', label: 'Mise en avant', type: 'text', placeholder: 'ex: Chaque week-end' },
-  { key: 'image_url', label: 'URL de l\'image', type: 'text' },
+  { key: 'image_url', label: 'Image', type: 'image' },
   { key: 'image_alt', label: 'Texte alternatif image', type: 'text' },
   { key: 'link', label: 'Lien', type: 'text' },
   { key: 'link_text', label: 'Texte du lien', type: 'text', placeholder: 'ex: En savoir plus' },

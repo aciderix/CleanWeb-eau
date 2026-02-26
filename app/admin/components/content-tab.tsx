@@ -20,6 +20,7 @@ export default function ContentTab({ token }: ContentTabProps) {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const fetchContent = useCallback(async () => {
     setLoading(true);
@@ -109,6 +110,58 @@ export default function ContentTab({ token }: ContentTabProps) {
   const getVal = (section: string, key: string, fallback: any = '') => {
     return allContent[section]?.[key] ?? fallback;
   };
+
+  const handleContentImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, sectionKey: string, fieldKey: string) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: fd,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        updateContent(sectionKey, fieldKey, data.url);
+      }
+    } catch {}
+    setUploading(false);
+  };
+
+  const renderImageInput = (
+    sectionKey: string,
+    fieldKey: string,
+    label: string
+  ) => (
+    <div key={fieldKey}>
+      <label className="block text-sm text-gray-300 mb-1">{label}</label>
+      {getVal(sectionKey, fieldKey) && (
+        <div className="mb-2">
+          <img src={getVal(sectionKey, fieldKey)} alt="Aperçu" className="h-24 object-contain rounded-lg bg-gray-700 p-1" />
+        </div>
+      )}
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={getVal(sectionKey, fieldKey)}
+          onChange={(e) => updateContent(sectionKey, fieldKey, e.target.value)}
+          className="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm"
+        />
+        <label className="bg-cyan-700 hover:bg-cyan-600 px-4 py-2.5 rounded-lg cursor-pointer transition text-sm whitespace-nowrap">
+          {uploading ? '⏳...' : '📤 Upload'}
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => handleContentImageUpload(e, sectionKey, fieldKey)}
+          />
+        </label>
+      </div>
+    </div>
+  );
 
   const renderTextInput = (
     sectionKey: string,
@@ -208,7 +261,7 @@ export default function ContentTab({ token }: ContentTabProps) {
     <div className="space-y-4">
       {renderTextInput('hero', 'title', 'Titre')}
       {renderTextInput('hero', 'subtitle', 'Sous-titre')}
-      {renderTextInput('hero', 'background_image_url', 'URL image de fond')}
+      {renderImageInput('hero', 'background_image_url', 'Image de fond')}
       <div className="grid grid-cols-2 gap-4">
         {renderTextInput('hero', 'cta_primary_text', 'Bouton principal — Texte')}
         {renderTextInput('hero', 'cta_primary_link', 'Bouton principal — Lien')}
@@ -225,10 +278,8 @@ export default function ContentTab({ token }: ContentTabProps) {
     <div className="space-y-4">
       {renderTextInput('about', 'section_title', 'Titre de la section')}
       {renderArrayField('about', 'paragraphs', 'Paragraphes', 'textarea')}
-      <div className="grid grid-cols-2 gap-4">
-        {renderTextInput('about', 'image_url', 'URL de l\'image')}
-        {renderTextInput('about', 'image_alt', 'Texte alternatif de l\'image')}
-      </div>
+      {renderImageInput('about', 'image_url', 'Image')}
+      {renderTextInput('about', 'image_alt', 'Texte alternatif de l\'image')}
       {renderSaveButton('about')}
     </div>
   );
@@ -245,7 +296,7 @@ export default function ContentTab({ token }: ContentTabProps) {
         {renderTextInput('support', 'donation_text', 'Texte du bouton don')}
         {renderTextInput('support', 'donation_link', 'Lien du don')}
       </div>
-      {renderTextInput('support', 'logo_url', 'URL du logo')}
+      {renderImageInput('support', 'logo_url', 'Logo')}
       {renderSaveButton('support')}
     </div>
   );
