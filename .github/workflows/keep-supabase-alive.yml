@@ -2,19 +2,46 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    # Runs twice a day: 8h and 20h UTC
     - cron: '0 8 * * *'
     - cron: '0 20 * * *'
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Ping Supabase
+      - name: Debug environment
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          curl -sf -o /dev/null \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/?limit=0"
+          echo "🔍 Debugging..."
+          echo "URL = $SUPABASE_URL"
+          echo "Key length = ${#SUPABASE_KEY}"
+
+      - name: Ping Supabase (verbose test)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "🚀 Testing connection (verbose)..."
+
+          curl -v \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" \
+            "$SUPABASE_URL/rest/v1/?limit=1"
+
+      - name: Ping Supabase (final silent check)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "⚡ Final silent ping..."
+
+          curl --fail --silent --show-error -o /dev/null \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" \
+            "$SUPABASE_URL/rest/v1/?limit=1"
+
           echo "✅ Supabase pinged successfully"
