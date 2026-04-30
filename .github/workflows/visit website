@@ -1,0 +1,48 @@
+name: Visit site 3x per week
+
+on:
+  schedule:
+    # Lundi, mercredi, vendredi à 07:00 UTC
+    - cron: "0 7 * * 1,3,5"
+  workflow_dispatch:
+
+jobs:
+  visit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright
+          npx playwright install --with-deps chromium
+
+      - name: Open page and wait for load
+        run: |
+          node <<'EOF'
+          const { chromium } = require('playwright');
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+
+            console.log('Opening https://clean-eau-nantes.fr/');
+            const response = await page.goto('https://clean-eau-nantes.fr/', {
+              waitUntil: 'networkidle',
+              timeout: 120000
+            });
+
+            console.log('HTTP status:', response ? response.status() : 'no response');
+            console.log('Page title:', await page.title());
+
+            await browser.close();
+          })().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          EOF
