@@ -308,7 +308,6 @@ export default function ContentTab({ token }: ContentTabProps) {
       {renderTextInput('contact', 'email', 'Email')}
       {renderTextInput('contact', 'address', 'Adresse')}
       {renderTextInput('contact', 'instagram_url', 'URL Instagram')}
-      {renderTextInput('contact', 'formspree_endpoint', 'Endpoint Formspree')}
       {renderSaveButton('contact')}
     </div>
   );
