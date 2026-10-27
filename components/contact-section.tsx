@@ -19,6 +19,32 @@ export default function ContactSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const controls = useAnimation()
   const [content, setContent] = useState(defaultContent)
+  useEffect(() => {
+    async function fetchContent() {
+      try {
+        const { data, error } = await supabase
+          .from("site_content")
+          .select("content")
+          .eq("section_key", "contact")
+          .single()
+
+        if (!error && data?.content) {
+          setContent({ ...defaultContent, ...data.content })
+        }
+      } catch {
+        // Keep default content if Supabase is unavailable.
+      }
+    }
+
+    fetchContent()
+  }, [])
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible")
+    }
+  }, [isInView, controls])
+
   const phoneHref = `tel:${content.phone.replace(/\s/g, "")}`
   const emailHref = `mailto:${content.email}`
   const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.address)}`
@@ -138,7 +164,6 @@ export default function ContactSection() {
               </Link>
             </div>
           </motion.div>
-        </div>
         </div>
       </div>
     </section>
